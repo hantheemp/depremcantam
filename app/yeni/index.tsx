@@ -15,13 +15,13 @@ export default function YeniSayfa() {
           <CounterInput
             header="Yetişkin Sayısı"
             disableInfo={false}
-            sheetHeader="Neden Yetişkin Sayısını İstiyoruz?"
-            sheetText="AFAD tarafından önerilen çanta hazırlama yolu kişi sayısına endekslidir. Bu veriler çanta oluşturulduktan sonra saklanmayacaktır."></CounterInput>
+            sheetHeader="Yetişkin Sayısının Önemi"
+            sheetText="Afet durumlarında her yetişkin için belirli temel ihtiyaçlar ve ekipmanlar gereklidir. Çanta içeriğinin doğru ve yeterli olması için yetişkin sayısı önem taşır. Bu bilgiler sadece çanta hazırlanması sırasında kullanılır ve saklanmaz."></CounterInput>
           <CounterInput
-            header="Çocuk Sayısı"
+            header="Çocuk Sayısının Önemi"
             disableInfo={false}
             sheetHeader="Neden Çocuk Sayısını İstiyoruz?"
-            sheetText="AFAD tarafından önerilen çanta hazırlama yolu kişi sayısına endekslidir. Bu veriler çanta oluşturulduktan sonra saklanmayacaktır."></CounterInput>
+            sheetText="Çocukların ihtiyaçları yetişkinlerden farklı olabilir; uygun miktarda çocuk malzemesi ve besin temini için çocuk sayısı bilinmelidir. Bu veri, acil durum çantasının doğru hazırlanmasını sağlar ve sonrasında saklanmaz."></CounterInput>
         </YStack>
       </YStack>
       <Button

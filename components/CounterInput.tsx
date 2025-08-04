@@ -1,6 +1,7 @@
 import { Info, Minus, Plus } from '@tamagui/lucide-icons';
 import { useState } from 'react';
-import { Button, Sheet, Text, XStack, YStack } from 'tamagui';
+import { Button, Text, XStack, YStack } from 'tamagui';
+import InfoSheet from './InfoSheet';
 
 type CounterInputProps = {
   header: string;
@@ -34,35 +35,12 @@ export default function CounterInput({
               <Info size="$1.5" color="#EDEDEF" />
             </Button>
 
-            <Sheet
+            <InfoSheet
               open={showSheet}
               onOpenChange={setShowSheet}
-              snapPointsMode="constant"
-              snapPoints={[150]}
-              dismissOnSnapToBottom
-              modal>
-              <Sheet.Overlay
-                animation="lazy"
-                backgroundColor="$shadowColor"
-                opacity={0.5}
-                enterStyle={{ opacity: 0 }}
-                exitStyle={{ opacity: 0 }}
-              />
-              <Sheet.Handle />
-              <Sheet.Frame
-                p="$4"
-                bg="#2B3640"
-                br="$4"
-                borderTopLeftRadius="$4"
-                borderTopRightRadius="$4">
-                <Text fontSize="$7" color="#EDEDEF" textAlign="left">
-                  {sheetHeader}
-                </Text>
-                <Text fontSize="$5" color="#EDEDEF" mt="$2" textAlign="left">
-                  {sheetText}
-                </Text>
-              </Sheet.Frame>
-            </Sheet>
+              sheetHeader={sheetHeader}
+              sheetText={sheetText}
+            />
           </>
         )}
       </XStack>

@@ -1,27 +1,17 @@
-import { useFonts } from 'expo-font';
-import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
-import { TamaguiProvider } from 'tamagui';
-
+import { Stack } from 'expo-router';
+import { TamaguiProvider, Theme } from 'tamagui';
 import config from '../tamagui.config';
+interface StackScreenOptions {
+  headerShown: boolean;
+}
+const stackScreenOptions: StackScreenOptions = { headerShown: false };
 
 export default function Layout() {
-  const [loaded] = useFonts({
-    Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
-    InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) return null;
-
   return (
     <TamaguiProvider config={config}>
-      <Stack />
+      <Theme name="dark">
+        <Stack screenOptions={stackScreenOptions}/>
+      </Theme>
     </TamaguiProvider>
   );
 }

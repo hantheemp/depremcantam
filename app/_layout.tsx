@@ -10,7 +10,11 @@ export default function Layout() {
   return (
     <TamaguiProvider config={config}>
       <Theme name="dark">
-        <Stack screenOptions={stackScreenOptions}/>
+        <Stack screenOptions={stackScreenOptions}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="(onboarding)" />
+          <Stack.Screen name="(tabs)" />
+        </Stack>
       </Theme>
     </TamaguiProvider>
   );

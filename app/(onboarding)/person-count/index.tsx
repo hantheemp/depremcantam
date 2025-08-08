@@ -1,12 +1,12 @@
-import { YStack, Text, Button, ScrollView } from 'tamagui';
-import { ArrowRight } from '@tamagui/lucide-icons';
+import { YStack, Text, ScrollView } from 'tamagui';
 import CounterInput from '~/components/CounterInput';
 import { router } from 'expo-router';
+import PrimaryButton from '~/components/PrimaryButton';
 
 export default function PersonScreen() {
   return (
-    <ScrollView bg="$background">
-      <YStack f={1} bg="$background" jc="space-between" py="$8" px="$4">
+    <YStack f={1} bg="$background" px="$4" py="$8" jc="space-between">
+      <ScrollView flex={1} showsVerticalScrollIndicator={false}>
         <YStack jc="center" ai="center" w="100%" py="$12" gap="$8">
           <YStack ai="center" mb="$6">
             <Text fontSize="$9" fontWeight="800" textAlign="center" color="#EDEDEF">
@@ -18,27 +18,21 @@ export default function PersonScreen() {
               header="Yetişkin Sayısı"
               disableInfo={false}
               sheetHeader="Yetişkin Sayısının Önemi"
-              sheetText="Afet durumlarında her yetişkin için belirli temel ihtiyaçlar ve ekipmanlar gereklidir. Çanta içeriğinin doğru ve yeterli olması için yetişkin sayısı önem taşır. Bu bilgiler sadece çanta hazırlanması sırasında kullanılır ve saklanmaz."></CounterInput>
+              sheetText="Afet durumlarında her yetişkin için belirli temel ihtiyaçlar ve ekipmanlar gereklidir. Çanta içeriğinin doğru ve yeterli olması için yetişkin sayısı önem taşır. Bu bilgiler sadece çanta hazırlanması sırasında kullanılır ve saklanmaz."
+            />
             <CounterInput
               header="Çocuk Sayısı"
               disableInfo={false}
               sheetHeader="Neden Çocuk Sayısını İstiyoruz?"
-              sheetText="Çocukların ihtiyaçları yetişkinlerden farklı olabilir; uygun miktarda çocuk malzemesi ve besin temini için çocuk sayısı bilinmelidir. Bu veri, acil durum çantasının doğru hazırlanmasını sağlar ve sonrasında saklanmaz."></CounterInput>
+              sheetText="Çocukların ihtiyaçları yetişkinlerden farklı olabilir; uygun miktarda çocuk malzemesi ve besin temini için çocuk sayısı bilinmelidir. Bu veri, acil durum çantasının doğru hazırlanmasını sağlar ve sonrasında saklanmaz."
+            />
           </YStack>
         </YStack>
-        <Button
-          size="$5"
-          borderRadius="$6"
-          bg="#DCE8F3"
-          w="100%"
-          jc="center"
-          iconAfter={<ArrowRight color="#141A1F" size="$2" />}
-          onPress={() => router.push('/(onboarding)/bag')}>
-          <Text fontSize="$6" color="#141A1F" fontWeight="800">
-            Devam Et
-          </Text>
-        </Button>
-      </YStack>
-    </ScrollView>
+      </ScrollView>
+
+      <PrimaryButton onPress={() => router.push('/(onboarding)/bag')} accessibilityLabel="Devam Et">
+        Devam Et
+      </PrimaryButton>
+    </YStack>
   );
 }

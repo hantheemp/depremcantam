@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-import { YStack, Text, ScrollView, XStack, Button } from 'tamagui';
-import { Package, Smartphone, Copy } from '@tamagui/lucide-icons';
+import { YStack, Text, ScrollView } from 'tamagui';
+import { Package, Smartphone } from '@tamagui/lucide-icons';
 import CategorySection from '~/components/CategorySection';
 import CategoryItem from '~/components/CategoryItem';
+import PrimaryButton from '~/components/PrimaryButton';
 
 interface Item {
   id: string;
@@ -38,8 +39,6 @@ export default function BagScreen() {
     );
   };
 
-  // #TODO: Implement actual save logic
-
   async function handleSave() {
     try {
       router.push('/(main)/home');
@@ -49,90 +48,62 @@ export default function BagScreen() {
   }
 
   return (
-    <YStack f={1} bg="$background">
-      <ScrollView f={1} contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
-        <YStack minHeight="100%" jc="space-between" py="$8" px="$4">
-          <YStack>
-            <YStack jc="center" ai="center" w="100%" py="$12" gap="$6">
-              <Text fontSize="$9" fontWeight="800" textAlign="center" color="#EDEDEF">
-                Acil Durum Çantanız Hazır!
-              </Text>
-            </YStack>
-
-            <YStack gap="$4">
-              <CategorySection title="Gıdalar">
-                {foodItems.map((item) => (
-                  <CategoryItem
-                    key={item.id}
-                    icon={Package}
-                    title={item.title}
-                    subtitle={item.subtitle}
-                    quantity={item.quantity}
-                    onDecrease={() => updateQuantity(setFoodItems, item.id, -1)}
-                    onIncrease={() => updateQuantity(setFoodItems, item.id, 1)}
-                  />
-                ))}
-              </CategorySection>
-
-              <CategorySection title="Gıdalar">
-                {foodItems.map((item) => (
-                  <CategoryItem
-                    key={item.id}
-                    icon={Package}
-                    title={item.title}
-                    subtitle={item.subtitle}
-                    quantity={item.quantity}
-                    onDecrease={() => updateQuantity(setFoodItems, item.id, -1)}
-                    onIncrease={() => updateQuantity(setFoodItems, item.id, 1)}
-                  />
-                ))}
-              </CategorySection>
-
-              <CategorySection title="Gıdalar">
-                {foodItems.map((item) => (
-                  <CategoryItem
-                    key={item.id}
-                    icon={Package}
-                    title={item.title}
-                    subtitle={item.subtitle}
-                    quantity={item.quantity}
-                    onDecrease={() => updateQuantity(setFoodItems, item.id, -1)}
-                    onIncrease={() => updateQuantity(setFoodItems, item.id, 1)}
-                  />
-                ))}
-              </CategorySection>
-
-              <CategorySection title="Elektronik">
-                {electronicItems.map((item) => (
-                  <CategoryItem
-                    key={item.id}
-                    icon={Smartphone}
-                    title={item.title}
-                    subtitle={item.subtitle}
-                    quantity={item.quantity}
-                    onDecrease={() => updateQuantity(setElectronicItems, item.id, -1)}
-                    onIncrease={() => updateQuantity(setElectronicItems, item.id, 1)}
-                  />
-                ))}
-              </CategorySection>
-            </YStack>
+    <YStack f={1} bg="$background" px="$4" py="$8" jc="space-between">
+      <ScrollView flex={1} showsVerticalScrollIndicator={false}>
+        <YStack minHeight="100%">
+          <YStack jc="center" ai="center" w="100%" pt="$12" pb="$4" gap="$6">
+            <Text fontSize="$9" mb="$8" fontWeight="800" textAlign="center" color="#EDEDEF">
+              Acil Durum Çantanız Hazır!
+            </Text>
           </YStack>
-          <Button
-            size="$5"
-            bg="#E5E7EB"
-            borderRadius="$6"
-            mt="$6"
-            onPress={handleSave}
-            pressStyle={{ opacity: 0.8 }}>
-            <XStack ai="center" gap="$2">
-              <Text color="#1F2937" fontWeight="800" fontSize="$5">
-                Kaydet
-              </Text>
-              <Copy size={18} color="#1F2937" />
-            </XStack>
-          </Button>
+
+          <CategorySection title="Gıdalar">
+            {foodItems.map((item) => (
+              <CategoryItem
+                key={item.id}
+                icon={Package}
+                title={item.title}
+                subtitle={item.subtitle}
+                quantity={item.quantity}
+                onDecrease={() => updateQuantity(setFoodItems, item.id, -1)}
+                onIncrease={() => updateQuantity(setFoodItems, item.id, 1)}
+              />
+            ))}
+          </CategorySection>
+
+          <CategorySection title="Gıdalar">
+            {foodItems.map((item) => (
+              <CategoryItem
+                key={item.id}
+                icon={Package}
+                title={item.title}
+                subtitle={item.subtitle}
+                quantity={item.quantity}
+                onDecrease={() => updateQuantity(setFoodItems, item.id, -1)}
+                onIncrease={() => updateQuantity(setFoodItems, item.id, 1)}
+              />
+            ))}
+          </CategorySection>
+
+          <CategorySection title="Elektronik">
+            {electronicItems.map((item) => (
+              <CategoryItem
+                key={item.id}
+                icon={Smartphone}
+                title={item.title}
+                subtitle={item.subtitle}
+                quantity={item.quantity}
+                onDecrease={() => updateQuantity(setElectronicItems, item.id, -1)}
+                onIncrease={() => updateQuantity(setElectronicItems, item.id, 1)}
+              />
+            ))}
+          </CategorySection>
         </YStack>
       </ScrollView>
+
+      <PrimaryButton onPress={handleSave} accessibilityLabel="Kaydet">
+        Kaydet
+      </PrimaryButton>
     </YStack>
   );
 }

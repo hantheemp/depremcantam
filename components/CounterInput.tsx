@@ -5,59 +5,75 @@ import InfoSheet from './InfoSheet';
 
 type CounterInputProps = {
   header: string;
-  disableInfo: boolean;
+  value?: number;
+  onChange?: (v: number) => void;
+  disableInfo?: boolean;
   sheetText: string;
   sheetHeader: string;
 };
 
 export default function CounterInput({
   header,
-  disableInfo,
+  value = 1,
+  onChange,
+  disableInfo = false,
   sheetHeader,
   sheetText,
 }: CounterInputProps) {
-  const [number, setNumber] = useState(3);
+  const [local, setLocal] = useState<number>(value);
   const [showSheet, setShowSheet] = useState(false);
 
-  const decrement = () => setNumber((prev) => Math.max(0, prev - 1));
-  const increment = () => setNumber((prev) => prev + 1);
+  function change(to: number) {
+    const next = Math.max(0, to);
+    setLocal(next);
+    onChange?.(next);
+  }
+
+  const decrement = () => change(local - 1);
+  const increment = () => change(local + 1);
 
   return (
     <YStack gap="$4">
-      <XStack ai="center" gap="$2" jc="space-between">
-        <Text fontSize="$7" fontWeight="bold" color="#EDEDEF">
+      <XStack ai="center" jc="space-between">
+        <Text fontSize="$6" fontWeight="800" color="#EDEDEF">
           {header}
         </Text>
-
         {!disableInfo && (
-          <>
-            <Button size="$2" chromeless circular onPress={() => setShowSheet(true)}>
-              <Info size="$1.5" color="#EDEDEF" />
-            </Button>
-
-            <InfoSheet
-              open={showSheet}
-              onOpenChange={setShowSheet}
-              sheetHeader={sheetHeader}
-              sheetText={sheetText}
-            />
-          </>
+          <Button size="$2" circular bg="transparent" onPress={() => setShowSheet(true)}>
+            <Info size="$1.5" color="#EDEDEF" />
+          </Button>
         )}
       </XStack>
-
-      <XStack ai="center" jc="space-between" bg="#2B3640" br="$6" p="$4" gap="$4">
-        <Button size="$3" chromeless onPress={decrement}>
+      
+      <XStack ai="center" jc="space-between" bg="#2B3640" br="$6" p="$4">
+        <Button 
+          size="$3" 
+          circular
+          bg="rgba(75, 85, 99, 0.8)"
+          onPress={decrement}
+        >
           <Minus size="$1.5" color="#EDEDEF" />
         </Button>
-
-        <Text fontSize="$7" fontWeight="700" color="#EDEDEF" ta="center" minWidth={40}>
-          {number}
+        
+        <Text fontSize="$7" fontWeight="700" color="#EDEDEF" textAlign="center" minWidth={40}>
+          {local}
         </Text>
-
-        <Button size="$3" chromeless onPress={increment}>
+        
+        <Button 
+          size="$3" 
+          circular
+          bg="rgba(75, 85, 99, 0.8)"
+          onPress={increment}
+        >
           <Plus size="$1.5" color="#EDEDEF" />
         </Button>
       </XStack>
+
+      <InfoSheet
+        open={showSheet}
+        onOpenChange={setShowSheet}
+        sheetHeader={sheetHeader}
+        sheetText={sheetText}
+      />
     </YStack>
-  );
-}
+  )};

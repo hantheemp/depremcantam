@@ -1,49 +1,47 @@
-// screens/BagScreen.tsx
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-import { YStack, Text, ScrollView } from 'tamagui';
-import CategoryItems from '~/components/CategoryItemComponents/CategoryItems';
-import PrimaryButton from '~/components/PrimaryButton';
-import type { Item } from '~/utils/bag';
-import { saveBag, getBag } from '~/utils/bag';
+import { YStack, Text, ScrollView, XStack, Button } from 'tamagui';
+import { Package, Smartphone, Copy } from '@tamagui/lucide-icons';
+import CategorySection from '~/components/CategorySection';
+import CategoryItem from '~/components/CategoryItem';
+
+interface Item {
+  id: string;
+  title: string;
+  subtitle: string;
+  quantity: number;
+}
 
 export default function BagScreen() {
   const router = useRouter();
 
-  // #TODO: Replace with actual data fetching or state management.
-  // #TODO: setFoodItems, setElectronicItems is redundant. Should be handled in a single state.
-
   const [foodItems, setFoodItems] = useState<Item[]>([
-    { id: 'f1', header: 'Konserve', quantity: 12, body: 'SKT: 28/08/2026' },
-    { id: 'f2', header: 'Su', quantity: 1, body: 'SKT: 28/08/2026' },
+    { id: 'f1', title: 'Konserve', subtitle: 'SKT: 28/08/2026', quantity: 15 },
+    { id: 'f2', title: 'Su', subtitle: 'SKT: 28/08/2026', quantity: 8 },
   ]);
 
   const [electronicItems, setElectronicItems] = useState<Item[]>([
-    { id: 'e1', header: 'El Feneri', quantity: 2, body: 'Pil durumu: %80' },
-    { id: 'e2', header: 'Radyo', quantity: 1, body: 'Çalışır durumda' },
+    { id: 'e1', title: 'El Feneri', subtitle: 'Pil durumu: %80', quantity: 4 },
+    { id: 'e2', title: 'Radyo', subtitle: 'Çalışır durumda', quantity: 5 },
   ]);
 
-  useEffect(() => {
-    (async () => {
-      const saved = await getBag();
-      if (saved) {
-        setFoodItems(saved.foodItems);
-        setElectronicItems(saved.electronicItems);
-      }
-    })();
-  }, []);
+  const updateQuantity = (
+    setItems: React.Dispatch<React.SetStateAction<Item[]>>,
+    id: string,
+    delta: number
+  ) => {
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, quantity: Math.max(0, item.quantity + delta) } : item
+      )
+    );
+  };
 
-  function onChangeQuantity(category: 'food' | 'electronic', id: string, quantity: number) {
-    const setter = category === 'food' ? setFoodItems : setElectronicItems;
-    setter((prev) => prev.map((it) => (it.id === id ? { ...it, quantity } : it)));
-    console.log(`Updated ${category} item ${id} to quantity ${quantity}`);
-  }
+  // #TODO: Implement actual save logic
 
   async function handleSave() {
     try {
-      await saveBag({ foodItems, electronicItems });
-      console.log(await getBag());
       router.push('/(main)/home');
     } catch (e) {
       Alert.alert('Hata', 'Kaydetme sırasında bir sorun oluştu.');
@@ -51,44 +49,90 @@ export default function BagScreen() {
   }
 
   return (
-    <ScrollView bg="$background">
-      <YStack f={1} bg="$background" jc="space-between" py="$8" px="$4">
-        <YStack jc="center" ai="center" w="100%" py="$12" gap="$8">
-          <Text fontSize="$9" fontWeight="800" textAlign="center" color="#EDEDEF">
-            Acil Durum Çantanız Hazır!
-          </Text>
+    <YStack f={1} bg="$background">
+      <ScrollView f={1} contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
+        <YStack minHeight="100%" jc="space-between" py="$8" px="$4">
+          <YStack>
+            <YStack jc="center" ai="center" w="100%" py="$12" gap="$6">
+              <Text fontSize="$9" fontWeight="800" textAlign="center" color="#EDEDEF">
+                Acil Durum Çantanız Hazır!
+              </Text>
+            </YStack>
 
-          <YStack w="100%" gap="$3" maw={600}>
-            <CategoryItems
-              category="Gıdalar"
-              items={foodItems}
-              onChangeQuantity={(id, q) => onChangeQuantity('food', id, q)}
-            />
+            <YStack gap="$4">
+              <CategorySection title="Gıdalar">
+                {foodItems.map((item) => (
+                  <CategoryItem
+                    key={item.id}
+                    icon={Package}
+                    title={item.title}
+                    subtitle={item.subtitle}
+                    quantity={item.quantity}
+                    onDecrease={() => updateQuantity(setFoodItems, item.id, -1)}
+                    onIncrease={() => updateQuantity(setFoodItems, item.id, 1)}
+                  />
+                ))}
+              </CategorySection>
 
-            <CategoryItems
-              category="Elektronik"
-              items={electronicItems}
-              onChangeQuantity={(id, q) => onChangeQuantity('electronic', id, q)}
-            />
+              <CategorySection title="Gıdalar">
+                {foodItems.map((item) => (
+                  <CategoryItem
+                    key={item.id}
+                    icon={Package}
+                    title={item.title}
+                    subtitle={item.subtitle}
+                    quantity={item.quantity}
+                    onDecrease={() => updateQuantity(setFoodItems, item.id, -1)}
+                    onIncrease={() => updateQuantity(setFoodItems, item.id, 1)}
+                  />
+                ))}
+              </CategorySection>
 
-            <CategoryItems
-              category="Elektronik"
-              items={electronicItems}
-              onChangeQuantity={(id, q) => onChangeQuantity('electronic', id, q)}
-            />
+              <CategorySection title="Gıdalar">
+                {foodItems.map((item) => (
+                  <CategoryItem
+                    key={item.id}
+                    icon={Package}
+                    title={item.title}
+                    subtitle={item.subtitle}
+                    quantity={item.quantity}
+                    onDecrease={() => updateQuantity(setFoodItems, item.id, -1)}
+                    onIncrease={() => updateQuantity(setFoodItems, item.id, 1)}
+                  />
+                ))}
+              </CategorySection>
 
-            <CategoryItems
-              category="Elektronik"
-              items={electronicItems}
-              onChangeQuantity={(id, q) => onChangeQuantity('electronic', id, q)}
-            />
+              <CategorySection title="Elektronik">
+                {electronicItems.map((item) => (
+                  <CategoryItem
+                    key={item.id}
+                    icon={Smartphone}
+                    title={item.title}
+                    subtitle={item.subtitle}
+                    quantity={item.quantity}
+                    onDecrease={() => updateQuantity(setElectronicItems, item.id, -1)}
+                    onIncrease={() => updateQuantity(setElectronicItems, item.id, 1)}
+                  />
+                ))}
+              </CategorySection>
+            </YStack>
           </YStack>
+          <Button
+            size="$5"
+            bg="#E5E7EB"
+            borderRadius="$6"
+            mt="$6"
+            onPress={handleSave}
+            pressStyle={{ opacity: 0.8 }}>
+            <XStack ai="center" gap="$2">
+              <Text color="#1F2937" fontWeight="800" fontSize="$5">
+                Kaydet
+              </Text>
+              <Copy size={18} color="#1F2937" />
+            </XStack>
+          </Button>
         </YStack>
-
-        <PrimaryButton onPress={handleSave} accessibilityLabel="Çantayı kaydet">
-          Kaydet
-        </PrimaryButton>
-      </YStack>
-    </ScrollView>
+      </ScrollView>
+    </YStack>
   );
 }

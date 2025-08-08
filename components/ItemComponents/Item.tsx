@@ -1,23 +1,23 @@
 import { ChevronRight, Hamburger, Minus, Plus } from '@tamagui/lucide-icons';
 import { Button, Text, XStack, YStack } from 'tamagui';
 
-interface CategoryItemProps {
+interface ItemProps {
   icon: React.ComponentType<{ size: number; color: string }>;
-  title: string;
-  subtitle: string;
+  header: string;
+  body: string;
   quantity: number;
   onDecrease: () => void;
   onIncrease: () => void;
 }
 
-export default function CategoryItem({
+export default function ItemComponent({
   icon: Icon,
-  title,
-  subtitle,
+  header,
+  body,
   quantity,
   onDecrease,
   onIncrease,
-}: CategoryItemProps) {
+}: ItemProps) {
   return (
     <XStack ai="center" jc="space-between" p="$4" mb="$3" bg="#2B3640" borderRadius="$6">
       <XStack ai="center" gap="$3" f={1}>
@@ -26,10 +26,10 @@ export default function CategoryItem({
         </YStack>
         <YStack f={1}>
           <Text fontSize="$5" fontWeight="600" color="#EDEDEF">
-            {title}
+            {header}
           </Text>
           <Text fontSize="$3" color="#9CA3AF">
-            {subtitle}
+            {body}
           </Text>
         </YStack>
       </XStack>

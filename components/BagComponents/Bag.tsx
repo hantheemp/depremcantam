@@ -1,27 +1,34 @@
-import { ChevronRight, Hamburger } from '@tamagui/lucide-icons';
+import { ChevronRight, Minus, Plus } from '@tamagui/lucide-icons';
 import { Button, Text, XStack, YStack } from 'tamagui';
 
-type BagProps = {
-  header: string;
-  quantity: number;
+interface BagProps {
+  icon: React.ComponentType<{ size: number; color: string }>;
+  title: string;
   body: string;
-};
+}
 
-export default function Bag({ header, quantity, body }: BagProps) {
+export default function Bag({ icon: Icon, title, body }: BagProps) {
   return (
-    <YStack bg="$background" jc="space-between">
-      <XStack ai="center" jc="flex-start" w="100%" py="$4">
-        <Button disabled size="$5" borderRadius="$6" bg="#2B3640" jc="center" />
-        <YStack f={1} ml="$4" gap="$2">
-          <Text fontSize="$6" fontWeight="800" color="#EDEDEF">
-            {header} ({quantity})
+    <XStack ai="center" jc="space-between" p="$4" mb="$3" bg="#2B3640" borderRadius="$6">
+      <XStack ai="center" gap="$3" f={1}>
+        <YStack w={40} h={40} ai="center" jc="center" bg="rgba(75, 85, 99, 0.6)" borderRadius="$3">
+          <Icon size={20} color="#EDEDEF" />
+        </YStack>
+        <YStack f={1}>
+          <Text fontSize="$5" fontWeight="600" color="#EDEDEF">
+            {title}
           </Text>
-          <Text fontSize="$5" color="#7C8996" fontWeight="400">
+          <Text fontSize="$3" color="#9CA3AF">
             {body}
           </Text>
         </YStack>
-        <Button iconAfter={<ChevronRight color="#EDEDED" size="$1.5" />}></Button>
       </XStack>
-    </YStack>
+
+      <XStack ai="center" gap="$3">
+        <Button size="$3" circular bg="#2B3640">
+          <ChevronRight size={24} color="#EDEDEF" />
+        </Button>
+      </XStack>
+    </XStack>
   );
 }

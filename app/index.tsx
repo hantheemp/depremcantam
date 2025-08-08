@@ -15,13 +15,12 @@ export default function IndexScreen() {
       const hasCompletedOnboarding = await AsyncStorage.getItem('onboarding_complete');
 
       if (hasCompletedOnboarding === 'true') {
-        // router.replace('/(tabs)/' as any);
-        // Currently real implementation does not exist.
+        router.replace('/(main)/home');
       } else {
-        router.replace('/(onboarding)/welcome/' as any);
+        router.replace('/(onboarding)/welcome');
       }
     } catch (error) {
-      router.replace('/(onboarding)/welcome/' as any);
+      router.replace('/(onboarding)/welcome');
     }
   };
 

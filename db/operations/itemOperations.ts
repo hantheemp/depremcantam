@@ -33,7 +33,7 @@ export async function getItemsByBagId<T extends SQLiteTable>(table: T, bagID: nu
       .select()
       .from(table)
       .where(eq((table as any).bag_id, bagID))
-      .get();
+      .all();
   } catch (error) {
     throw new Error(`Error occured while fetching items of : ${error}`);
   }
@@ -41,6 +41,7 @@ export async function getItemsByBagId<T extends SQLiteTable>(table: T, bagID: nu
 
 export async function updateItem<T extends SQLiteTable>(
   table: T,
+  bagID: number,
   id: number,
   values: Partial<typeof table.$inferInsert>
 ) {
@@ -50,7 +51,7 @@ export async function updateItem<T extends SQLiteTable>(
     await db
       .update(table)
       .set(values)
-      .where(eq((table as any).id, id));
+      .where(eq((table as any).id, id) && eq((table as any).bag_id, bagID));
   } catch (error) {
     throw new Error(`Error occured while updating item : ${error}`);
   }

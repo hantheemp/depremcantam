@@ -54,23 +54,17 @@ export async function getAllBags() {
   }
 }
 
-export default async function updateBag(
-  id: number,
-  name: string,
-  description: string,
-  saved_at: string,
-  is_owned: boolean
-) {
+export async function updateBag(id: number, bagUpdates: Partial<typeof bags.$inferInsert>) {
   try {
     const db = await getDB();
 
     await db
       .update(bags)
       .set({
-        name: name,
-        description: description,
-        saved_at: saved_at,
-        is_owned: is_owned,
+        name: bagUpdates.name,
+        description: bagUpdates.description,
+        saved_at: bagUpdates.saved_at,
+        is_owned: bagUpdates.is_owned,
       })
       .where(eq(bags.id, id));
   } catch (error) {

@@ -7,25 +7,17 @@ import { Package, Smartphone, Shirt, FileText, Heart, Hamburger } from '@tamagui
 import PrimaryButton from '~/components/PrimaryButton';
 import ItemSection from '~/components/ItemComponents/ItemSection';
 import ItemComponent from '~/components/ItemComponents/Item';
-import {
-  foodItems,
-  electronicItems,
-  clothingItems,
-  medicalItems,
-  documentItems,
-  specialCareItems,
-} from '~/testData/bagScreen';
 
 export default function BagScreen() {
   const router = useRouter();
 
-  const [food, setFood] = useState(foodItems);
+  /*const [food, setFood] = useState(foodItems);
   const [electronics, setElectronics] = useState(electronicItems);
   const [clothing, setClothing] = useState(clothingItems);
   const [medical, setMedical] = useState(medicalItems);
   const [documents, setDocuments] = useState(documentItems);
   const [specialCare, setSpecialCare] = useState(specialCareItems);
-
+*/
   const updateQuantity = <T extends { id: string; quantity: number }>(
     setItems: React.Dispatch<React.SetStateAction<T[]>>,
     id: string,
@@ -46,7 +38,7 @@ export default function BagScreen() {
     }
   }
 
-  return (
+  /*return (
     <YStack f={1} bg="$background" px="$4" py="$8" jc="space-between">
       <ScrollView flex={1} showsVerticalScrollIndicator={false}>
         <YStack minHeight="100%">
@@ -146,5 +138,5 @@ export default function BagScreen() {
         Kaydet
       </PrimaryButton>
     </YStack>
-  );
+  );*/
 }

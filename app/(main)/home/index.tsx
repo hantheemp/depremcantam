@@ -5,12 +5,10 @@ import Bag from '~/components/BagComponents/Bag';
 import BagSection from '~/components/BagComponents/BagSection';
 import PrimaryButton from '~/components/PrimaryButton';
 import Profile from '~/components/Profile';
-import { testBag } from '~/testData/homeScreen';
 
 export default function HomeScreen() {
-  const [bag, setBag] = useState(testBag);
-
-  return (
+  //const [bag, setBag] = useState(testBag);
+  /*return (
     <YStack f={1} bg="$background" px="$4" py="$8" jc="space-between">
       <ScrollView flex={1} showsVerticalScrollIndicator={false}>
         <YStack minHeight="100%">
@@ -32,5 +30,5 @@ export default function HomeScreen() {
         </YStack>
       </ScrollView>
     </YStack>
-  );
+  );*/
 }

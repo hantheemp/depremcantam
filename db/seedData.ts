@@ -5,7 +5,6 @@
         * Resetting database ( clear + seed )
     
     Instead of dealing with bullshit json test files, migrated to SQLite at the early phases of development.
-
 */
 
 import { getDB } from './connection';
@@ -22,23 +21,25 @@ import {
 
 export async function seedDB() {
   try {
+    const db = await getDB();
+
     const sampleBags = [
       {
-        id: 'bag-001',
+        id: 1,
         name: 'Ana Acil Durum Çantası',
         description: 'Temel acil durum malzemeleri içeren ana çanta',
         saved_at: new Date().toISOString(),
         is_owned: true,
       },
       {
-        id: 'bag-002',
+        id: 2,
         name: 'Araç Acil Durum Kiti',
         description: 'Araçta bulundurulması gereken acil durum malzemeleri',
         saved_at: new Date().toISOString(),
         is_owned: true,
       },
       {
-        id: 'bag-003',
+        id: 3,
         name: 'Paylaşılan Aile Çantası',
         description: 'Aile üyeleri arasında paylaşılan acil durum çantası',
         saved_at: new Date().toISOString(),
@@ -46,263 +47,263 @@ export async function seedDB() {
       },
     ];
 
-    await getDB().insert(bags).values(sampleBags);
+    await db.insert(bags).values(sampleBags);
 
     const sharedBagRelations = [
       {
-        shared_bag_id: 'bag-003',
+        shared_bag_id: 3,
         can_edit: true,
         shared_at: new Date().toISOString(),
       },
     ];
 
-    await getDB().insert(sharedBags).values(sharedBagRelations);
+    await db.insert(sharedBags).values(sharedBagRelations);
 
     const sampleFoodItems = [
       {
-        id: 'food-001',
+        id: 1,
         header: 'Konserve Fasulye',
         quantity: 12,
         expiry_date: '2026-12-31',
         body: 'Protein açısından zengin, uzun raf ömrü',
-        bag_id: 'bag-001',
+        bag_id: 1,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'food-002',
+        id: 2,
         header: 'İçme Suyu (5L)',
         quantity: 6,
         expiry_date: '2025-06-15',
         body: 'Temiz içme suyu, acil durumlar için',
-        bag_id: 'bag-001',
+        bag_id: 1,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'food-003',
+        id: 3,
         header: 'Enerji Barı',
         quantity: 20,
         expiry_date: '2025-09-30',
         body: 'Yüksek kalori, kompakt boyut',
-        bag_id: 'bag-002',
+        bag_id: 2,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'food-004',
+        id: 4,
         header: 'Kurutulmuş Meyve',
         quantity: 8,
         expiry_date: '2025-12-01',
         body: 'Vitamin kaynağı, doğal şeker',
-        bag_id: 'bag-003',
+        bag_id: 3,
         added_at: new Date().toISOString(),
       },
     ];
 
-    await getDB().insert(foodItems).values(sampleFoodItems);
+    await db.insert(foodItems).values(sampleFoodItems);
 
     const sampleElectronicItems = [
       {
-        id: 'electronic-001',
+        id: 1,
         header: 'LED El Feneri',
         quantity: 3,
         charge: '%85',
         body: 'Su geçirmez, uzun pil ömrü',
-        bag_id: 'bag-001',
+        bag_id: 1,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'electronic-002',
+        id: 2,
         header: 'Güneş Panelli Radyo',
         quantity: 1,
         charge: 'Çalışır durumda',
         body: 'Hava durumu ve acil haberler için',
-        bag_id: 'bag-001',
+        bag_id: 1,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'electronic-003',
+        id: 3,
         header: 'Power Bank 20000mAh',
         quantity: 2,
         charge: '%100',
         body: 'Yüksek kapasiteli şarj cihazı',
-        bag_id: 'bag-002',
+        bag_id: 2,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'electronic-004',
+        id: 4,
         header: 'Acil Durum Düdüğü',
         quantity: 4,
         charge: 'Pil gerektirmez',
         body: 'Yardım çağırmak için ses verici',
-        bag_id: 'bag-003',
+        bag_id: 3,
         added_at: new Date().toISOString(),
       },
     ];
 
-    await getDB().insert(electronicItems).values(sampleElectronicItems);
+    await db.insert(electronicItems).values(sampleElectronicItems);
 
     const sampleClothingItems = [
       {
-        id: 'clothing-001',
+        id: 1,
         header: 'Su Geçirmez Yağmurluk',
         quantity: 4,
         season: 'Her mevsim',
         body: 'Hafif, katlanabilir, su geçirmez',
-        bag_id: 'bag-001',
+        bag_id: 1,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'clothing-002',
+        id: 2,
         header: 'Termal İç Çamaşır Seti',
         quantity: 2,
         season: 'Kış',
         body: 'Vücut ısısını korur',
-        bag_id: 'bag-001',
+        bag_id: 1,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'clothing-003',
+        id: 3,
         header: 'Çok Amaçlı Eldiven',
         quantity: 6,
         season: 'Her mevsim',
         body: 'İş eldiveni, koruyucu',
-        bag_id: 'bag-002',
+        bag_id: 2,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'clothing-004',
+        id: 4,
         header: 'Kalın Çorap',
         quantity: 8,
         season: 'Kış',
         body: 'Ayak sıcaklığı için kalın çoraplar',
-        bag_id: 'bag-003',
+        bag_id: 3,
         added_at: new Date().toISOString(),
       },
     ];
 
-    await getDB().insert(clothingItems).values(sampleClothingItems);
+    await db.insert(clothingItems).values(sampleClothingItems);
 
     const sampleMedicalItems = [
       {
-        id: 'medical-001',
+        id: 1,
         header: 'İlk Yardım Kiti',
         quantity: 1,
         medicine_type: 'Kit',
         body: 'Temel ilk yardım malzemeleri seti',
-        bag_id: 'bag-001',
+        bag_id: 1,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'medical-002',
+        id: 2,
         header: 'Ağrı Kesici İlaç',
         quantity: 2,
         medicine_type: 'Tablet',
         body: 'Paracetamol bazlı ağrı kesici',
-        bag_id: 'bag-001',
+        bag_id: 1,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'medical-003',
+        id: 3,
         header: 'Antiseptik Solüsyon',
         quantity: 3,
         medicine_type: 'Sıvı',
         body: 'Yara temizleme ve dezenfeksiyon',
-        bag_id: 'bag-002',
+        bag_id: 2,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'medical-004',
+        id: 4,
         header: 'Elastic Bandaj',
         quantity: 5,
         medicine_type: 'Malzeme',
         body: 'Burkulmalar ve yaralanmalar için',
-        bag_id: 'bag-003',
+        bag_id: 3,
         added_at: new Date().toISOString(),
       },
     ];
 
-    await getDB().insert(medicalItems).values(sampleMedicalItems);
+    await db.insert(medicalItems).values(sampleMedicalItems);
 
     const sampleDocumentItems = [
       {
-        id: 'document-001',
+        id: 1,
         header: 'Kimlik Fotokopisi',
         quantity: 2,
         document_type: 'Kimlik',
         body: 'Nüfus cüzdanı ve ehliyet kopyası',
-        bag_id: 'bag-001',
+        bag_id: 1,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'document-002',
+        id: 2,
         header: 'Sigorta Poliçeleri',
         quantity: 1,
         document_type: 'Sigorta',
         body: 'Sağlık ve kasko sigortası belgeleri',
-        bag_id: 'bag-001',
+        bag_id: 1,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'document-003',
+        id: 3,
         header: 'Acil Durum İletişim Listesi',
         quantity: 1,
         document_type: 'Liste',
         body: 'Önemli telefon numaraları listesi',
-        bag_id: 'bag-002',
+        bag_id: 2,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'document-004',
+        id: 4,
         header: 'Banka Bilgileri',
         quantity: 1,
         document_type: 'Finansal',
         body: 'Banka hesap bilgileri ve kartlar',
-        bag_id: 'bag-003',
+        bag_id: 3,
         added_at: new Date().toISOString(),
       },
     ];
 
-    await getDB().insert(documentItems).values(sampleDocumentItems);
+    await db.insert(documentItems).values(sampleDocumentItems);
 
     const sampleSpecialCareItems = [
       {
-        id: 'special-001',
+        id: 1,
         header: 'Bebek Bezi Paketi',
         quantity: 30,
         belongs_to: 'Bebek (6-12 ay)',
         body: 'Su geçirmez, yumuşak bez',
-        bag_id: 'bag-001',
+        bag_id: 1,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'special-002',
+        id: 2,
         header: 'Yaşlı Bakım Malzemeleri',
         quantity: 1,
         belongs_to: 'Yaşlı Birey',
         body: 'Günlük bakım için gerekli malzemeler',
-        bag_id: 'bag-001',
+        bag_id: 1,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'special-003',
+        id: 3,
         header: 'Diyabet İlaç Kiti',
         quantity: 1,
         belongs_to: 'Diyabet Hastası',
         body: 'İnsülin ve ölçüm cihazları',
-        bag_id: 'bag-002',
+        bag_id: 2,
         added_at: new Date().toISOString(),
       },
       {
-        id: 'special-004',
+        id: 4,
         header: 'Evcil Hayvan Yemi',
         quantity: 5,
         belongs_to: 'Köpek',
         body: 'Kuru mama ve su kabı',
-        bag_id: 'bag-003',
+        bag_id: 3,
         added_at: new Date().toISOString(),
       },
     ];
 
-    await getDB().insert(specialCareItems).values(sampleSpecialCareItems);
+    await db.insert(specialCareItems).values(sampleSpecialCareItems);
 
     return {
       bags: sampleBags.length,
@@ -321,19 +322,19 @@ export async function seedDB() {
 
 /* 
     Delete Item instances in reverse order (to prevent foreign key constraint).
-    Never cascade constraints, they exists for a reason!
+    Never cascade constraints, they exist for a reason!
 */
-
 export async function clearDB() {
+  const db = await getDB();
   try {
-    await getDB().delete(sharedBags);
-    await getDB().delete(specialCareItems);
-    await getDB().delete(documentItems);
-    await getDB().delete(medicalItems);
-    await getDB().delete(clothingItems);
-    await getDB().delete(electronicItems);
-    await getDB().delete(foodItems);
-    await getDB().delete(bags);
+    await db.delete(sharedBags);
+    await db.delete(specialCareItems);
+    await db.delete(documentItems);
+    await db.delete(medicalItems);
+    await db.delete(clothingItems);
+    await db.delete(electronicItems);
+    await db.delete(foodItems);
+    await db.delete(bags);
   } catch (error) {
     throw new Error(`Error occured while clearing DB: ${error}`);
   }
@@ -342,7 +343,6 @@ export async function clearDB() {
 /*
     Helper function to clear and seed database.
 */
-
 export async function resetDB() {
   await clearDB();
   return await seedDB();

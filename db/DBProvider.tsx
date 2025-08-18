@@ -10,7 +10,7 @@ interface DBContextValue {
 const DBContext = createContext<DBContextValue>({ db: null });
 
 export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [db, setDB] = useState<ReturnType<typeof getDB> | null>(null);
+  const [db, setDB] = useState<ReturnType<typeof drizzle> | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

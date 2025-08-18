@@ -13,6 +13,19 @@ module.exports = function (api) {
   return {
     presets: ['babel-preset-expo'],
 
-    plugins,
+    plugins: [
+      ['inline-import', { extensions: ['.sql'] }],
+      [
+        'module:react-native-dotenv',
+        {
+          moduleName: '@env',
+          path: '.env',
+          blocklist: null,
+          allowlist: null,
+          safe: false,
+          allowUndefined: true,
+        },
+      ],
+    ],
   };
 };

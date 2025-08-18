@@ -1,0 +1,94 @@
+import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
+
+// BAGS TABLE
+export const bags = sqliteTable('bags', {
+  id: text('id').primaryKey(),
+  name: text('name').notNull(),
+  description: text('description').notNull(),
+  saved_at: text('saved_at').notNull(), // SQLite stores datetime as text
+  is_owned: integer('is_owned', { mode: 'boolean' }).notNull(),
+});
+
+// SHARED BAGS TABLE
+export const sharedBags = sqliteTable('shared_bags', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  shared_bag_id: text('shared_bag_id').notNull().references(() => bags.id),
+  can_edit: integer('can_edit', { mode: 'boolean' }).notNull(),
+  shared_at: text('shared_at').notNull(),
+});
+
+// FOOD ITEMS TABLE
+export const foodItems = sqliteTable('food_items', {
+  id: text('id').primaryKey(),
+  header: text('header').notNull(),
+  quantity: integer('quantity').notNull(),
+  expiry_date: text('expiry_date').notNull(),
+  body: text('body'),
+  bag_id: text('bag_id').notNull().references(() => bags.id),
+  added_at: text('added_at').notNull(),
+});
+
+// ELECTRONIC ITEMS TABLE
+export const electronicItems = sqliteTable('electronic_items', {
+  id: text('id').primaryKey(),
+  header: text('header').notNull(),
+  quantity: integer('quantity').notNull(),
+  charge: text('charge').notNull(),
+  body: text('body').notNull(),
+  bag_id: text('bag_id').notNull().references(() => bags.id),
+  added_at: text('added_at').notNull(),
+});
+
+// CLOTHING ITEMS TABLE
+export const clothingItems = sqliteTable('clothing_items', {
+  id: text('id').primaryKey(),
+  header: text('header').notNull(),
+  quantity: integer('quantity').notNull(),
+  season: text('season').notNull(),
+  body: text('body').notNull(),
+  bag_id: text('bag_id').notNull().references(() => bags.id),
+  added_at: text('added_at').notNull(),
+});
+
+// MEDICAL ITEMS TABLE
+export const medicalItems = sqliteTable('medical_items', {
+  id: text('id').primaryKey(),
+  header: text('header').notNull(),
+  quantity: integer('quantity').notNull(),
+  medicine_type: text('medicine_type').notNull(),
+  body: text('body').notNull(),
+  bag_id: text('bag_id').notNull().references(() => bags.id),
+  added_at: text('added_at').notNull(),
+});
+
+// DOCUMENT ITEMS TABLE
+export const documentItems = sqliteTable('document_items', {
+  id: text('id').primaryKey(),
+  header: text('header').notNull(),
+  quantity: integer('quantity').notNull(),
+  document_type: text('document_type').notNull(),
+  body: text('body').notNull(),
+  bag_id: text('bag_id').notNull().references(() => bags.id),
+  added_at: text('added_at').notNull(),
+});
+
+// SPECIAL CARE ITEMS TABLE
+export const specialCareItems = sqliteTable('special_care_items', {
+  id: text('id').primaryKey(),
+  header: text('header').notNull(),
+  quantity: integer('quantity').notNull(),
+  belongs_to: text('belongs_to').notNull(),
+  body: text('body').notNull(),
+  bag_id: text('bag_id').notNull().references(() => bags.id),
+  added_at: text('added_at').notNull(),
+});
+
+// TYPE INFERENCES
+export type Bag = typeof bags.$inferSelect;
+export type SharedBag = typeof sharedBags.$inferSelect;
+export type FoodItem = typeof foodItems.$inferSelect;
+export type ElectronicItem = typeof electronicItems.$inferSelect;
+export type ClothingItem = typeof clothingItems.$inferSelect;
+export type MedicalItem = typeof medicalItems.$inferSelect;
+export type DocumentItem = typeof documentItems.$inferSelect;
+export type SpecialCareItem = typeof specialCareItems.$inferSelect;

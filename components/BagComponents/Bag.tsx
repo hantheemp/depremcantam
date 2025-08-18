@@ -1,13 +1,15 @@
 import { ChevronRight, Minus, Plus } from '@tamagui/lucide-icons';
+import { router } from 'expo-router';
 import { Button, Text, XStack, YStack } from 'tamagui';
 
 interface BagProps {
+  id: string;
   icon: React.ComponentType<{ size: number; color: string }>;
   title: string;
   body: string;
 }
 
-export default function Bag({ icon: Icon, title, body }: BagProps) {
+export default function Bag({ id, icon: Icon, title, body }: BagProps) {
   return (
     <XStack ai="center" jc="space-between" p="$4" mb="$3" bg="#2B3640" borderRadius="$6">
       <XStack ai="center" gap="$3" f={1}>
@@ -25,7 +27,14 @@ export default function Bag({ icon: Icon, title, body }: BagProps) {
       </XStack>
 
       <XStack ai="center" gap="$3">
-        <Button size="$3" circular bg="#2B3640">
+        <Button
+          size="$3"
+          circular
+          bg="#2B3640"
+          onPress={() => {
+            console.log(id);
+            router.replace(`/(main)/home/${id}`);
+          }}>
           <ChevronRight size={24} color="#EDEDEF" />
         </Button>
       </XStack>

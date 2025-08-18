@@ -20,57 +20,17 @@ export default function HomeScreen() {
 
           <BagSection title="Çantalarım">
             {bag.map((item) => (
-              <YStack w="100%" maw={400} gap="$6">
-                <Bag
-                  key={item.id}
-                  icon={Package}
-                  title={item.name}
-                  body={item.items.length + ' Öğe, Son Güncelleme: Dün'}
-                />
-                <Bag
-                  key={item.id}
-                  icon={Package}
-                  title={item.name}
-                  body={item.items.length + ' Öğe, Son Güncelleme: Dün'}
-                />
-                <Bag
-                  key={item.id}
-                  icon={Package}
-                  title={item.name}
-                  body={item.items.length + ' Öğe, Son Güncelleme: Dün'}
-                />
-              </YStack>
-            ))}
-          </BagSection>
-
-          <BagSection title="Ortak Çantalarım">
-            {bag.map((item) => (
-              <YStack w="100%" maw={400} gap="$6">
-                <Bag
-                  key={item.id}
-                  icon={Package}
-                  title={item.name}
-                  body={item.items.length + ' Öğe, Son Güncelleme: Dün'}
-                />
-                <Bag
-                  key={item.id}
-                  icon={Package}
-                  title={item.name}
-                  body={item.items.length + ' Öğe, Son Güncelleme: Dün'}
-                />
-                <Bag
-                  key={item.id}
-                  icon={Package}
-                  title={item.name}
-                  body={item.items.length + ' Öğe, Son Güncelleme: Dün'}
-                />
-              </YStack>
+              <Bag
+                id={item.id}
+                key={item.id}
+                icon={Package}
+                title={item.name}
+                body={item.items.length + ' Öğe, Son Güncelleme: Dün'}
+              />
             ))}
           </BagSection>
         </YStack>
       </ScrollView>
-
-      <PrimaryButton accessibilityLabel="Kaydet">Kaydet</PrimaryButton>
     </YStack>
   );
 }

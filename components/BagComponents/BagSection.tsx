@@ -7,8 +7,8 @@ interface BagSectionProps {
 
 export default function BagSection({ title, children }: BagSectionProps) {
   return (
-    <YStack mb="$5">
-      <Text fontSize="$9" fontWeight="700" color="#EDEDEF" mb="$3">
+    <YStack mb="$6">
+      <Text fontSize="$9" fontWeight="700" color="#EDEDEF" mb="$6">
         {title}
       </Text>
       {children}

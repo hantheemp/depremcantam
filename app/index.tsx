@@ -3,9 +3,7 @@ import { View, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
 import { useDB } from '~/db/DBProvider';
-import { foodItems } from '~/db/schema';
-import { seedDB } from '~/db/seedData';
-import { eq } from 'drizzle-orm';
+import { getBagWithItems } from '~/services/bagService';
 
 export default function IndexScreen() {
   const db = useDB();
@@ -16,23 +14,18 @@ export default function IndexScreen() {
         return;
       }
 
+      const bag = await getBagWithItems(1);
+      console.log('Bag with items:', bag);
+
       try {
-        const items = await db.select().from(foodItems);
-
-        console.log('Food items:', items);
-        console.log('separator');
-
-        const item = await db.select().from(foodItems).where(eq(foodItems.bag_id, 1));
-        console.log('Specific Food', item);
+        const hasCompletedOnboarding = await AsyncStorage.getItem('onboarding_complete');
+        if (hasCompletedOnboarding === 'true') {
+          router.replace('/(main)/home');
+        } else {
+          router.replace('/(onboarding)/welcome');
+        }
       } catch (e) {
         console.error('DB error:', e);
-      }
-
-      const hasCompletedOnboarding = await AsyncStorage.getItem('onboarding_complete');
-      if (hasCompletedOnboarding === 'true') {
-        router.replace('/(main)/home');
-      } else {
-        router.replace('/(onboarding)/welcome');
       }
     }
 

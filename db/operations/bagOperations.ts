@@ -11,7 +11,7 @@ export async function createBag(
   try {
     const db = await getDB();
 
-    db.insert(bags).values({
+    await db.insert(bags).values({
       name: name,
       description: description,
       saved_at: saved_at,
@@ -26,7 +26,7 @@ export async function getBagByID(id: number) {
   try {
     const db = await getDB();
 
-    const bag = db.select().from(bags).where(eq(bags.id, id)).get();
+    const bag = await db.select().from(bags).where(eq(bags.id, id)).get();
 
     if (bag) {
       return bag;
@@ -42,7 +42,7 @@ export async function getAllBags() {
   try {
     const db = await getDB();
 
-    const allBags = db.select().from(bags).all();
+    const allBags = await db.select().from(bags).all();
 
     if (allBags) {
       return allBags;
@@ -64,7 +64,8 @@ export default async function updateBag(
   try {
     const db = await getDB();
 
-    db.update(bags)
+    await db
+      .update(bags)
       .set({
         name: name,
         description: description,
@@ -81,7 +82,7 @@ export async function deleteBag(id: number) {
   try {
     const db = await getDB();
 
-    db.delete(bags).where(eq(bags.id, id));
+    await db.delete(bags).where(eq(bags.id, id));
   } catch (error) {
     throw new Error(`Error deleting bag ${id}`);
   }

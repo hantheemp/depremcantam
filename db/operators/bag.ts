@@ -11,14 +11,20 @@ export async function createBag(
   try {
     const db = await getDB();
 
-    await db.insert(bags).values({
-      name: name,
-      description: description,
-      saved_at: saved_at,
-      is_owned: is_owned,
+    const result = await db.insert(bags).values({
+      name,
+      description,
+      saved_at,
+      is_owned,
     });
+
+    const bagID = result.lastInsertRowId;
+
+    if (!bagID) throw new Error('Failed to get inserted bag ID');
+
+    return bagID;
   } catch (error) {
-    throw new Error(`Error occured while creating new bag: ${error}`);
+    throw new Error(`Error occurred while creating new bag: ${error}`);
   }
 }
 

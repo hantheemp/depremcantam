@@ -1,5 +1,22 @@
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
 
+export type FoodItemInput = Omit<typeof foodItems.$inferInsert, 'bag_id'>;
+export type ElectronicItemInput = Omit<typeof electronicItems.$inferInsert, 'bag_id'>;
+export type ClothingItemInput = Omit<typeof clothingItems.$inferInsert, 'bag_id'>;
+export type MedicalItemInput = Omit<typeof medicalItems.$inferInsert, 'bag_id'>;
+export type DocumentItemInput = Omit<typeof documentItems.$inferInsert, 'bag_id'>;
+export type SpecialCareItemInput = Omit<typeof specialCareItems.$inferInsert, 'bag_id'>;
+
+// You could also create a generic type for reusability
+export type ItemInputsCollection = {
+  foods?: FoodItemInput[];
+  electronics?: ElectronicItemInput[];
+  clothings?: ClothingItemInput[];
+  medicals?: MedicalItemInput[];
+  documents?: DocumentItemInput[];
+  specialCares?: SpecialCareItemInput[];
+};
+
 // BAGS TABLE
 export const bags = sqliteTable('bags', {
   id: integer('id').primaryKey({ autoIncrement: true }),

@@ -3,7 +3,6 @@ import { View, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
 import { useDB } from '~/db/DBProvider';
-import { getBagWithItems, getAllBagsWithItems } from '~/services/bagService';
 
 export default function IndexScreen() {
   const db = useDB();
@@ -13,9 +12,6 @@ export default function IndexScreen() {
       if (!db) {
         return;
       }
-
-      const bags = await getAllBagsWithItems();
-      console.log('Bag with items:', bags);
 
       try {
         const hasCompletedOnboarding = await AsyncStorage.getItem('onboarding_complete');

@@ -1,11 +1,12 @@
-import { updateBag, getBagByID, getAllBags, deleteBag } from '~/db/operations/bagOperations';
-import { deleteItem, getItemsByBagId, updateItem } from '~/db/operations/itemOperations';
+import { updateBag, getBagByID, getAllBags, deleteBag, createBag } from '~/db/operators/bag';
+import { createItem, deleteItem, getItemsByBagId, updateItem } from '~/db/operators/item';
 import {
   bags,
   clothingItems,
   documentItems,
   electronicItems,
   foodItems,
+  ItemInputsCollection,
   medicalItems,
   specialCareItems,
 } from '~/db/schema';
@@ -65,6 +66,60 @@ export async function getAllBagsWithItems() {
     return bagWithItems;
   } catch (error) {
     throw new Error(`Error fetching bags: ${error}`);
+  }
+}
+
+export async function createBagWithItems(
+  name: string,
+  description: string,
+  saved_at: string,
+  is_owned: boolean,
+  itemInserts: ItemInputsCollection
+) {
+  try {
+    const bagID = await createBag(name, description, saved_at, is_owned);
+
+    if (!bagID) {
+      throw new Error(`Error creating bag!`);
+    }
+
+    if (itemInserts.foods) {
+      for (const food of itemInserts.foods) {
+        await createItem(foodItems, { ...food, bag_id: bagID });
+      }
+    }
+
+    if (itemInserts.electronics) {
+      for (const electronic of itemInserts.electronics) {
+        await createItem(electronicItems, { ...electronic, bag_id: bagID });
+      }
+    }
+
+    if (itemInserts.clothings) {
+      for (const clothing of itemInserts.clothings) {
+        await createItem(clothingItems, { ...clothing, bag_id: bagID });
+      }
+    }
+
+    if (itemInserts.medicals) {
+      for (const medical of itemInserts.medicals) {
+        await createItem(medicalItems, { ...medical, bag_id: bagID });
+      }
+    }
+
+    if (itemInserts.documents) {
+      for (const document of itemInserts.documents) {
+        await createItem(documentItems, { ...document, bag_id: bagID });
+      }
+    }
+
+    if (itemInserts.specialCares) {
+      for (const specialCare of itemInserts.specialCares) {
+        await createItem(specialCareItems, { ...specialCare, bag_id: bagID });
+      }
+    }
+  } catch (error) {
+    throw new Error(`Error creating bag: ${error}`);
   }
 }
 

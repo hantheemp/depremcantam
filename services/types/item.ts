@@ -1,4 +1,13 @@
-import { FoodItem } from '../interfaces/item';
+import {
+  DrinkItem,
+  FoodItem,
+  ClothingItem,
+  DocumentItem,
+  ElectronicItem,
+  MedicalItem,
+  SpecialCareItem,
+  HygieneItem,
+} from '../interfaces/item';
 
 export type GeneratorNumberTypes = {
   adult: number;
@@ -8,18 +17,31 @@ export type GeneratorNumberTypes = {
   pet: number;
 };
 
+export type Item = {
+  foods: FoodRecord;
+  drinks: DrinkRecord;
+  electronics: ElectronicRecord;
+  clothings: ClothingRecord;
+  medicals: MedicalRecord;
+  documents: DocumentRecord;
+  specialCares: SpecialCareRecord;
+  hygienes: HygieneRecord;
+};
+
+export type ItemRecord = Record<string, Item>;
+
 export type FoodRecord = Record<string, FoodItem>;
 
-export type DrinkRecord = Record<string, FoodItem>;
+export type DrinkRecord = Record<string, DrinkItem>;
 
-export type ElectronicRecord = Record<string, FoodItem>;
+export type ElectronicRecord = Record<string, ElectronicItem>;
 
-export type ClothingRecord = Record<string, FoodItem>;
+export type ClothingRecord = Record<string, ClothingItem>;
 
-export type MedicalRecord = Record<string, FoodItem>;
+export type MedicalRecord = Record<string, MedicalItem>;
 
-export type DocumentRecord = Record<string, FoodItem>;
+export type DocumentRecord = Record<string, DocumentItem>;
 
-export type SpecialRecord = Record<string, FoodItem>;
+export type SpecialCareRecord = Record<string, SpecialCareItem>;
 
-export type HygieneRecord = Record<string, FoodItem>;
+export type HygieneRecord = Record<string, HygieneItem>;

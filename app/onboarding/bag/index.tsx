@@ -1,32 +1,37 @@
-// BagScreen.tsx
 import { Alert } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import { YStack, Text, ScrollView } from 'tamagui';
 import { Package, Smartphone, Shirt, FileText, Heart, Hamburger } from '@tamagui/lucide-icons';
 import PrimaryButton from '~/components/PrimaryButton';
 import ItemSection from '~/components/ItemComponents/ItemSection';
 import ItemComponent from '~/components/ItemComponents/Item';
-import { generateAFADBag } from '~/services/item';
+import { itemGenerator } from '~/services/item/itemGenerator/itemGenerator';
 
 export default function BagScreen() {
   const router = useRouter();
+  const params = useLocalSearchParams();
 
-  // currently it is fixed for 3 persons, it should be switched to dynamic
-  // also, the person count should be handled separately for adults and children.
-  const personCount = 3;
-  const items = generateAFADBag({
-    adult: 1,
-    children: 1,
-    elderly: 1,
-    baby: 1,
-    pet: 1,
+  const adult = parseInt(params.adult as string) || 1;
+  const children = parseInt(params.children as string) || 0;
+  const elderly = parseInt(params.elderly as string) || 0;
+  const baby = parseInt(params.baby as string) || 0;
+  const pet = parseInt(params.pet as string) || 0;
+
+  const totalPersonCount = adult + children + elderly + baby + pet;
+
+  const items = itemGenerator({
+    adult,
+    baby,
+    children,
+    elderly,
+    pet,
   });
 
   async function handleSave() {
     try {
-      router.push('/(main)/home');
-    } catch (e) {
-      Alert.alert('Hata', 'Kaydetme sırasında bir sorun oluştu.');
+      router.push('/main/home');
+    } catch (error) {
+      Alert.alert(`Error while creating bag: ${error}`);
     }
   }
 
@@ -36,12 +41,12 @@ export default function BagScreen() {
         <YStack minHeight="100%">
           <YStack jc="center" ai="center" w="100%" pt="$12" pb="$4" gap="$6">
             <Text fontSize="$9" mb="$8" fontWeight="800" textAlign="center" color="#EDEDEF">
-              Acil Durum Çantanız Hazır! (Kişi sayısı: {personCount})
+              Acil Durum Çantanız Hazır! (Kişi sayısı: {totalPersonCount})
             </Text>
           </YStack>
 
           <ItemSection title="Gıdalar">
-            {items.food?.map((item, idx) => (
+            {items.foods.map((item, idx) => (
               <ItemComponent
                 key={idx}
                 icon={Package}

@@ -7,7 +7,7 @@
     Instead of dealing with bullshit json test files, migrated to SQLite at the early phases of development.
 */
 
-import { getDB } from './connection';
+import { getDB } from '../connection';
 import {
   bags,
   foodItems,
@@ -17,7 +17,7 @@ import {
   documentItems,
   specialCareItems,
   sharedBags,
-} from './schema';
+} from '../schema';
 
 export async function seedDB() {
   try {

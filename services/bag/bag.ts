@@ -10,6 +10,7 @@ import {
   medicalItems,
   specialCareItems,
 } from '~/db/schema';
+import { ItemsForUI } from '../item/itemGenerator/interfaces/item';
 
 export async function getBagWithItems(bagID: number) {
   try {
@@ -74,7 +75,7 @@ export async function createBagWithItems(
   description: string,
   saved_at: string,
   is_owned: boolean,
-  itemInserts: ItemInputsCollection
+  itemInserts: ItemsForUI
 ) {
   try {
     const bagID = await createBag(name, description, saved_at, is_owned);

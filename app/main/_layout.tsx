@@ -1,4 +1,5 @@
-// (main)/layout.tsx
+// #NOTE: Adding this or TypeScript won't shut the fuck up while compiling.
+
 import { Stack } from 'expo-router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Theme, YStack } from 'tamagui';

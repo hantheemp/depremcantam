@@ -1,4 +1,3 @@
-import React from 'react';
 import { YStack, Text, Image, ScrollView } from 'tamagui';
 import { useRouter } from 'expo-router';
 import PrimaryButton from '~/components/PrimaryButton';
@@ -39,7 +38,7 @@ export default function WelcomeScreen() {
         </YStack>
       </ScrollView>
       <PrimaryButton
-        onPress={() => router.push('/(onboarding)/person-count')}
+        onPress={() => router.push('/onboarding/person-count')}
         accessibilityLabel="Hazırlığa Başla">
         Hazırlığa Başla
       </PrimaryButton>

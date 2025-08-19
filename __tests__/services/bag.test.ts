@@ -1,4 +1,4 @@
-import { createBagWithItems } from '~/services/bag';
+import { createBagWithItems } from '~/services/bag/bag';
 
 const mockCreateBag = jest.fn();
 const mockCreateItem = jest.fn();

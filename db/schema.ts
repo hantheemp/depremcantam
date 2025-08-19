@@ -1,13 +1,6 @@
+import { float } from 'drizzle-orm/mysql-core';
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
 
-export type FoodItemInput = Omit<typeof foodItems.$inferInsert, 'bag_id'>;
-export type ElectronicItemInput = Omit<typeof electronicItems.$inferInsert, 'bag_id'>;
-export type ClothingItemInput = Omit<typeof clothingItems.$inferInsert, 'bag_id'>;
-export type MedicalItemInput = Omit<typeof medicalItems.$inferInsert, 'bag_id'>;
-export type DocumentItemInput = Omit<typeof documentItems.$inferInsert, 'bag_id'>;
-export type SpecialCareItemInput = Omit<typeof specialCareItems.$inferInsert, 'bag_id'>;
-
-// You could also create a generic type for reusability
 export type ItemInputsCollection = {
   foods?: FoodItemInput[];
   electronics?: ElectronicItemInput[];
@@ -42,6 +35,19 @@ export const foodItems = sqliteTable('food_items', {
   header: text('header').notNull(),
   quantity: integer('quantity').notNull(),
   expiry_date: text('expiry_date').notNull(),
+  body: text('body'),
+  bag_id: integer('bag_id')
+    .notNull()
+    .references(() => bags.id),
+  added_at: text('added_at').notNull(),
+});
+
+// DRINK ITEMS TABLE
+export const drinkItems = sqliteTable('drink_items', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  header: text('header').notNull(),
+  quantity: integer('quantity').notNull(),
+  liters: float('liters').notNull(),
   body: text('body'),
   bag_id: integer('bag_id')
     .notNull()
@@ -114,6 +120,28 @@ export const specialCareItems = sqliteTable('special_care_items', {
   added_at: text('added_at').notNull(),
 });
 
+// HYGIENE ITEMS TABLE
+export const hygieneItems = sqliteTable('hygiene_items', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  header: text('header').notNull(),
+  quantity: integer('quantity').notNull(),
+  belongs_to: text('belongs_to').notNull(),
+  body: text('body').notNull(),
+  bag_id: integer('bag_id')
+    .notNull()
+    .references(() => bags.id),
+  added_at: text('added_at').notNull(),
+});
+
+export type FoodItemInput = Omit<typeof foodItems.$inferInsert, 'bag_id'>;
+export type ElectronicItemInput = Omit<typeof electronicItems.$inferInsert, 'bag_id'>;
+export type ClothingItemInput = Omit<typeof clothingItems.$inferInsert, 'bag_id'>;
+export type MedicalItemInput = Omit<typeof medicalItems.$inferInsert, 'bag_id'>;
+export type DocumentItemInput = Omit<typeof documentItems.$inferInsert, 'bag_id'>;
+export type SpecialCareItemInput = Omit<typeof specialCareItems.$inferInsert, 'bag_id'>;
+export type DrinkItemInput = Omit<typeof drinkItems.$inferSelect, 'bag_id'>;
+export type HygieneItemInput = Omit<typeof hygieneItems.$inferSelect, 'bag_id'>;
+
 // TYPE INFERENCES
 export type Bag = typeof bags.$inferSelect;
 export type SharedBag = typeof sharedBags.$inferSelect;
@@ -123,3 +151,4 @@ export type ClothingItem = typeof clothingItems.$inferSelect;
 export type MedicalItem = typeof medicalItems.$inferSelect;
 export type DocumentItem = typeof documentItems.$inferSelect;
 export type SpecialCareItem = typeof specialCareItems.$inferSelect;
+export type HygieneItem = typeof hygieneItems.$inferSelect;

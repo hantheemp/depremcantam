@@ -8,6 +8,13 @@
       "when": 1755521106397,
       "tag": "0000_narrow_changeling",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1755625648108,
+      "tag": "0001_polite_white_queen",
+      "breakpoints": true
     }
   ]
 }

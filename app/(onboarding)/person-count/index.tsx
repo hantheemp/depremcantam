@@ -10,21 +10,33 @@ export default function PersonScreen() {
         <YStack jc="center" ai="center" w="100%" py="$12" gap="$8">
           <YStack ai="center" mb="$6">
             <Text fontSize="$9" fontWeight="800" textAlign="center" color="#EDEDEF">
-              Kişi Sayısını Girin
+              Kişi ve Hayvan Sayısını Girin
             </Text>
           </YStack>
           <YStack w="100%" maw={400} gap="$6">
             <CounterInput
               header="Yetişkin Sayısı"
               disableInfo={false}
-              sheetHeader="Yetişkin Sayısının Önemi"
+              sheetHeader="12 yaş ve üzeri yetişkin sayısı"
               sheetText="Afet durumlarında her yetişkin için belirli temel ihtiyaçlar ve ekipmanlar gereklidir. Çanta içeriğinin doğru ve yeterli olması için yetişkin sayısı önem taşır. Bu bilgiler sadece çanta hazırlanması sırasında kullanılır ve saklanmaz."
             />
             <CounterInput
-              header="Çocuk Sayısı"
+              header="12 yaş altı çocuk sayısı"
               disableInfo={false}
               sheetHeader="Neden Çocuk Sayısını İstiyoruz?"
               sheetText="Çocukların ihtiyaçları yetişkinlerden farklı olabilir; uygun miktarda çocuk malzemesi ve besin temini için çocuk sayısı bilinmelidir. Bu veri, acil durum çantasının doğru hazırlanmasını sağlar ve sonrasında saklanmaz."
+            />
+            <CounterInput
+              header="Yaşlı Sayısı"
+              disableInfo={false}
+              sheetHeader="Neden Yaşlı Sayısını İstiyoruz?"
+              sheetText="Yaşlıların ihtiyaçları yetişkınlerden veya çocuklardan farklı olabilir; uygun miktarda yaşlı malzemesi ve besin temini için çocuk sayısı bilinmelidir. Bu veri, acil durum çantasının doğru hazırlanmasını sağlar ve sonrasında saklanmaz."
+            />
+            <CounterInput
+              header="Evcıl Hayvan Sqayısı"
+              disableInfo={false}
+              sheetHeader="Neden Yaşlı Sayısını İstiyoruz?"
+              sheetText="Yaşlıların ihtiyaçları yetişkınlerden veya çocuklardan farklı olabilir; uygun miktarda yaşlı malzemesi ve besin temini için çocuk sayısı bilinmelidir. Bu veri, acil durum çantasının doğru hazırlanmasını sağlar ve sonrasında saklanmaz."
             />
           </YStack>
         </YStack>

@@ -1,5 +1,4 @@
 // BagScreen.tsx
-import { useState } from 'react';
 import { Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { YStack, Text, ScrollView } from 'tamagui';
@@ -7,28 +6,21 @@ import { Package, Smartphone, Shirt, FileText, Heart, Hamburger } from '@tamagui
 import PrimaryButton from '~/components/PrimaryButton';
 import ItemSection from '~/components/ItemComponents/ItemSection';
 import ItemComponent from '~/components/ItemComponents/Item';
+import { generateAFADBag } from '~/services/item';
 
 export default function BagScreen() {
   const router = useRouter();
 
-  /*const [food, setFood] = useState(foodItems);
-  const [electronics, setElectronics] = useState(electronicItems);
-  const [clothing, setClothing] = useState(clothingItems);
-  const [medical, setMedical] = useState(medicalItems);
-  const [documents, setDocuments] = useState(documentItems);
-  const [specialCare, setSpecialCare] = useState(specialCareItems);
-*/
-  const updateQuantity = <T extends { id: string; quantity: number }>(
-    setItems: React.Dispatch<React.SetStateAction<T[]>>,
-    id: string,
-    delta: number
-  ) => {
-    setItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: Math.max(0, item.quantity + delta) } : item
-      )
-    );
-  };
+  // currently it is fixed for 3 persons, it should be switched to dynamic
+  // also, the person count should be handled separately for adults and children.
+  const personCount = 3;
+  const items = generateAFADBag({
+    adult: 1,
+    children: 1,
+    elderly: 1,
+    baby: 1,
+    pet: 1,
+  });
 
   async function handleSave() {
     try {
@@ -38,96 +30,96 @@ export default function BagScreen() {
     }
   }
 
-  /*return (
+  return (
     <YStack f={1} bg="$background" px="$4" py="$8" jc="space-between">
       <ScrollView flex={1} showsVerticalScrollIndicator={false}>
         <YStack minHeight="100%">
           <YStack jc="center" ai="center" w="100%" pt="$12" pb="$4" gap="$6">
             <Text fontSize="$9" mb="$8" fontWeight="800" textAlign="center" color="#EDEDEF">
-              Acil Durum Çantanız Hazır!
+              Acil Durum Çantanız Hazır! (Kişi sayısı: {personCount})
             </Text>
           </YStack>
 
           <ItemSection title="Gıdalar">
-            {food.map((item) => (
+            {items.food?.map((item, idx) => (
               <ItemComponent
-                key={item.id}
+                key={idx}
                 icon={Package}
                 header={item.header}
-                body={`SKT: ${item.expiryDate}`}
+                body={`SKT: ${item.expiry_date}`}
                 quantity={item.quantity}
-                onDecrease={() => updateQuantity(setFood, item.id, -1)}
-                onIncrease={() => updateQuantity(setFood, item.id, 1)}
+                onDecrease={() => {}}
+                onIncrease={() => {}}
               />
             ))}
           </ItemSection>
 
           <ItemSection title="Elektronik">
-            {electronics.map((item) => (
+            {items.electronics?.map((item, idx) => (
               <ItemComponent
-                key={item.id}
+                key={idx}
                 icon={Smartphone}
                 header={item.header}
                 body={`Pil durumu: ${item.charge}`}
                 quantity={item.quantity}
-                onDecrease={() => updateQuantity(setElectronics, item.id, -1)}
-                onIncrease={() => updateQuantity(setElectronics, item.id, 1)}
+                onDecrease={() => {}}
+                onIncrease={() => {}}
               />
             ))}
           </ItemSection>
 
           <ItemSection title="Giyim">
-            {clothing.map((item) => (
+            {items.clothings?.map((item, idx) => (
               <ItemComponent
-                key={item.id}
+                key={idx}
                 icon={Shirt}
                 header={item.header}
                 body={`Mevsim: ${item.season}`}
                 quantity={item.quantity}
-                onDecrease={() => updateQuantity(setClothing, item.id, -1)}
-                onIncrease={() => updateQuantity(setClothing, item.id, 1)}
+                onDecrease={() => {}}
+                onIncrease={() => {}}
               />
             ))}
           </ItemSection>
 
           <ItemSection title="Tıbbi Malzemeler">
-            {medical.map((item) => (
+            {items.medicals?.map((item, idx) => (
               <ItemComponent
-                key={item.id}
+                key={idx}
                 icon={Hamburger}
                 header={item.header}
-                body={`Tür: ${item.medicineType}`}
+                body={`Tür: ${item.medicine_type}`}
                 quantity={item.quantity}
-                onDecrease={() => updateQuantity(setMedical, item.id, -1)}
-                onIncrease={() => updateQuantity(setMedical, item.id, 1)}
+                onDecrease={() => {}}
+                onIncrease={() => {}}
               />
             ))}
           </ItemSection>
 
           <ItemSection title="Belgeler">
-            {documents.map((item) => (
+            {items.documents?.map((item, idx) => (
               <ItemComponent
-                key={item.id}
+                key={idx}
                 icon={FileText}
                 header={item.header}
-                body={`Tip: ${item.documentType}`}
+                body={`Tip: ${item.document_type}`}
                 quantity={item.quantity}
-                onDecrease={() => updateQuantity(setDocuments, item.id, -1)}
-                onIncrease={() => updateQuantity(setDocuments, item.id, 1)}
+                onDecrease={() => {}}
+                onIncrease={() => {}}
               />
             ))}
           </ItemSection>
 
           <ItemSection title="Özel Bakım">
-            {specialCare.map((item) => (
+            {items.specialCares?.map((item, idx) => (
               <ItemComponent
-                key={item.id}
+                key={idx}
                 icon={Heart}
                 header={item.header}
-                body={`Kime ait: ${item.belongsTo}`}
+                body={`Kime ait: ${item.belongs_to}`}
                 quantity={item.quantity}
-                onDecrease={() => updateQuantity(setSpecialCare, item.id, -1)}
-                onIncrease={() => updateQuantity(setSpecialCare, item.id, 1)}
+                onDecrease={() => {}}
+                onIncrease={() => {}}
               />
             ))}
           </ItemSection>
@@ -138,5 +130,5 @@ export default function BagScreen() {
         Kaydet
       </PrimaryButton>
     </YStack>
-  );*/
+  );
 }

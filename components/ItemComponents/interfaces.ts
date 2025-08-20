@@ -5,6 +5,7 @@ export interface ItemProps {
   quantity: number;
   onDecrease: () => void;
   onIncrease: () => void;
+  isPlusMinus: boolean;
 }
 
 export interface ItemSectionProps {

@@ -68,6 +68,7 @@ export default function BagScreen() {
                 quantity={item.quantity}
                 onDecrease={() => {}}
                 onIncrease={() => {}}
+                isPlusMinus={true}
               />
             ))}
           </ItemSection>
@@ -82,6 +83,7 @@ export default function BagScreen() {
                 quantity={item.quantity}
                 onDecrease={() => {}}
                 onIncrease={() => {}}
+                isPlusMinus={true}
               />
             ))}
           </ItemSection>
@@ -96,6 +98,7 @@ export default function BagScreen() {
                 quantity={item.quantity}
                 onDecrease={() => {}}
                 onIncrease={() => {}}
+                isPlusMinus={true}
               />
             ))}
           </ItemSection>
@@ -110,6 +113,7 @@ export default function BagScreen() {
                 quantity={item.quantity}
                 onDecrease={() => {}}
                 onIncrease={() => {}}
+                isPlusMinus={true}
               />
             ))}
           </ItemSection>
@@ -124,6 +128,7 @@ export default function BagScreen() {
                 quantity={item.quantity}
                 onDecrease={() => {}}
                 onIncrease={() => {}}
+                isPlusMinus={true}
               />
             ))}
           </ItemSection>
@@ -138,6 +143,7 @@ export default function BagScreen() {
                 quantity={item.quantity}
                 onDecrease={() => {}}
                 onIncrease={() => {}}
+                isPlusMinus={true}
               />
             ))}
           </ItemSection>

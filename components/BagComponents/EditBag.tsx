@@ -42,6 +42,7 @@ import { getAllItemsByBagId, getItemsByBagId } from '~/db/operators/item';
 import { useEffect, useState } from 'react';
 import { Sheet } from 'tamagui';
 import { LinearGradient } from 'react-native-svg';
+import SelectGroup from './SelectGroup';
 
 interface EditBagComponentProps {
   bagID: number;
@@ -169,101 +170,41 @@ export default function EditBagComponent({ bagID }: EditBagComponentProps) {
       </Group>
 
       {selectOptions.map(({ label, options }, i) => (
-        <YStack key={i} mt="$4" gap="$2">
-          <Label fontSize="$7" fontWeight="800" color="$color">
-            {label}
-          </Label>
-          <Select
-            value={options[0].toLowerCase()}
-            onValueChange={(val) => console.log(val)}
-            disablePreventBodyScroll>
-            <Select.Trigger
-              borderRadius="$6"
-              bg="#EDEDEF"
-              maxWidth={220}
-              iconAfter={ChevronDown}
-              px="$3"
-              py="$2">
-              <Select.Value placeholder="Seçin" />
-            </Select.Trigger>
-
-            <Adapt platform="touch">
-              <Sheet modal dismissOnSnapToBottom>
-                <Sheet.Frame>
-                  <Sheet.ScrollView>
-                    <Adapt.Contents />
-                  </Sheet.ScrollView>
-                </Sheet.Frame>
-                <Sheet.Overlay backgroundColor="$shadowColor" />
-              </Sheet>
-            </Adapt>
-
-            <Select.Content zIndex={200000}>
-              <Select.ScrollUpButton
-                alignItems="center"
-                justifyContent="center"
-                height="$3"
-                width="100%">
-                <YStack zIndex={10}>
-                  <ChevronUp size={20} />
-                </YStack>
-                <LinearGradient />
-              </Select.ScrollUpButton>
-
-              <Select.Viewport minWidth={200}>
-                <Select.Group>
-                  {options.map((opt, idx) => (
-                    <Select.Item
-                      key={idx}
-                      index={idx}
-                      value={opt.toLowerCase()}
-                      px="$3"
-                      py="$2"
-                      borderRadius="$6">
-                      <Select.ItemText>{opt}</Select.ItemText>
-                      <Select.ItemIndicator marginLeft="auto">
-                        <Check size={16} />
-                      </Select.ItemIndicator>
-                    </Select.Item>
-                  ))}
-                </Select.Group>
-              </Select.Viewport>
-
-              <Select.ScrollDownButton
-                alignItems="center"
-                justifyContent="center"
-                height="$3"
-                width="100%">
-                <YStack zIndex={10}>
-                  <ChevronDown size={20} />
-                </YStack>
-                <LinearGradient />
-              </Select.ScrollDownButton>
-            </Select.Content>
-          </Select>
-        </YStack>
+        <SelectGroup
+          key={i}
+          label={label}
+          options={options}
+          onValueChange={(val) => console.log(val)}
+        />
       ))}
 
       <Group>
-        <Text mt="$4" mb="$2" fontWeight="700" color="$color">
+        <Text fontSize="$7" mt="$4" mb="$2" fontWeight="700" color="$color">
           Ürün İsmi
         </Text>
-        <Input placeholder="Ürün ismi" />
+        <Input
+          size="$5"
+          placeholderTextColor="$color"
+          bg="rgba(75, 85, 99, 0.6)"
+          placeholder="Ürün ismi"
+        />
       </Group>
       <Group>
-        <Text mt="$4" mb="$2" fontWeight="700" color="$color">
+        <Text fontSize="$7" mt="$4" mb="$2" fontWeight="700" color="$color">
           Ürün Açıklaması
         </Text>
-        <TextArea placeholder="Çanta açıklaması girin..." />
+        <TextArea
+          placeholderTextColor="$color"
+          bg="rgba(75, 85, 99, 0.6)"
+          placeholder="Çanta açıklaması girin..."
+          size="$5"
+        />
       </Group>
-      <Group>
-        <Text mt="$4" mb="$2" fontWeight="700" color="$color">
-          Adet
-        </Text>
+      <Group mt="$4" mb="$2">
         <CounterInput header="Adet" sheetHeader="" sheetText="" disableInfo={true} />
       </Group>
       <Group>
-        <Text mt="$4" mb="$2" fontWeight="700" color="$color">
+        <Text fontSize="$7" mt="$4" mb="$2" fontWeight="700" color="$color">
           Son Kullanma Tarihi
         </Text>
         <Button icon={<Calendar size="$1" />}>Tarih Seç</Button>
@@ -299,6 +240,7 @@ export default function EditBagComponent({ bagID }: EditBagComponentProps) {
                   quantity={item.quantity}
                   onDecrease={() => {}}
                   onIncrease={() => {}}
+                  isPlusMinus={false}
                 />
               ))}
             </ItemSection>

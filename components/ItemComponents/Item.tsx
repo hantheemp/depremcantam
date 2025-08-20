@@ -1,14 +1,6 @@
 import { ChevronRight, Hamburger, Minus, Plus } from '@tamagui/lucide-icons';
 import { Button, Text, XStack, YStack } from 'tamagui';
-
-interface ItemProps {
-  icon: React.ComponentType<{ size: number; color: string }>;
-  header: string;
-  body: string;
-  quantity: number;
-  onDecrease: () => void;
-  onIncrease: () => void;
-}
+import { ItemProps } from './interfaces';
 
 export default function ItemComponent({
   icon: Icon,

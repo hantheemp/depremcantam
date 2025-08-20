@@ -1,0 +1,1 @@
+ALTER TABLE `bags` ADD `body` text;

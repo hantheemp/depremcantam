@@ -1,6 +1,16 @@
 import { SQLiteTable } from 'drizzle-orm/sqlite-core';
 import { getDB } from '../connection';
 import { eq } from 'drizzle-orm';
+import {
+  clothingItems,
+  documentItems,
+  drinkItems,
+  electronicItems,
+  foodItems,
+  hygieneItems,
+  medicalItems,
+  specialCareItems,
+} from '../schema';
 
 export async function createItem<T extends SQLiteTable>(
   table: T,
@@ -44,6 +54,19 @@ export async function getItemsByBagId<T extends SQLiteTable>(table: T, bagID: nu
   } catch (error) {
     throw new Error(`Error occured while fetching items of : ${error}`);
   }
+}
+
+export async function getAllItemsByBagId(bagID: number) {
+  const foods = await getItemsByBagId(foodItems, bagID);
+  const drinks = await getItemsByBagId(drinkItems, bagID);
+  const clothes = await getItemsByBagId(clothingItems, bagID);
+  const documents = await getItemsByBagId(documentItems, bagID);
+  const electronics = await getItemsByBagId(electronicItems, bagID);
+  const medicals = await getItemsByBagId(medicalItems, bagID);
+  const specialCares = await getItemsByBagId(specialCareItems, bagID);
+  const hygienes = await getItemsByBagId(hygieneItems, bagID);
+
+  return { foods, clothes, documents, electronics, drinks, medicals, specialCares, hygienes };
 }
 
 export async function updateItem<T extends SQLiteTable>(

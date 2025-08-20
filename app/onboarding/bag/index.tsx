@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { YStack, Text, ScrollView } from 'tamagui';
 import { Package, Smartphone, Shirt, FileText, Heart, Hamburger } from '@tamagui/lucide-icons';
@@ -7,9 +6,6 @@ import ItemSection from '~/components/ItemComponents/ItemSection';
 import ItemComponent from '~/components/ItemComponents/Item';
 import { itemGenerator } from '~/services/item/itemGenerator/itemGenerator';
 import { bagGenerator } from '~/services/bag/bagGenerator/bagGenerator';
-import { getBagByID } from '~/db/operators/bag';
-import { getItemsByBagId } from '~/db/operators/item';
-import { foodItems } from '~/db/schema';
 
 export default function BagScreen() {
   const router = useRouter();
@@ -37,8 +33,8 @@ export default function BagScreen() {
     try {
       const date = new Date().toISOString();
       const generatedBagID = await bagGenerator({
-        name: 'Acil Durum Çantam',
-        description: 'AFAD önerileri baz alınarak hazırlanan acil durum çantanız.',
+        name: 'Meliş Çantası',
+        description: 'Melmel Temel acil durum çantası.',
         saved_at: date,
         is_owned: true,
         itemInserts: items,

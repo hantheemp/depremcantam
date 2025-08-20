@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { YStack, Text, ScrollView } from 'tamagui';
-import CounterInput from '~/components/CounterInput';
 import { router } from 'expo-router';
 import PrimaryButton from '~/components/PrimaryButton';
-import { counterInputData } from '~/components/constants/counterInput';
+import { counterInputData } from '~/components/CounterInput/constants';
+import CounterInput from '~/components/CounterInput/CounterInput';
 
 export default function PersonScreen() {
   const [counts, setCounts] = useState({

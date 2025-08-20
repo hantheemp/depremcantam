@@ -1,7 +1,7 @@
 import { Info, Minus, Plus } from '@tamagui/lucide-icons';
 import { useState } from 'react';
 import { Button, Text, XStack, YStack } from 'tamagui';
-import InfoSheet from './InfoSheet';
+import InfoSheet from '../InfoSheet';
 
 type CounterInputProps = {
   header: string;

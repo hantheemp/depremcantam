@@ -15,6 +15,7 @@ export const bags = sqliteTable('bags', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   name: text('name').notNull(),
   description: text('description').notNull(),
+  body: text('body'),
   saved_at: text('saved_at').notNull(),
   is_owned: integer('is_owned', { mode: 'boolean' }).notNull(),
 });

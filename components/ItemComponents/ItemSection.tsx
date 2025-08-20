@@ -1,9 +1,5 @@
 import { Text, YStack } from 'tamagui';
-
-interface ItemSectionProps {
-  title: string;
-  children: React.ReactNode;
-}
+import { ItemSectionProps } from './interfaces';
 
 export default function ItemSection({ title, children }: ItemSectionProps) {
   return (

@@ -6,6 +6,10 @@ import PrimaryButton from '~/components/PrimaryButton';
 import ItemSection from '~/components/ItemComponents/ItemSection';
 import ItemComponent from '~/components/ItemComponents/Item';
 import { itemGenerator } from '~/services/item/itemGenerator/itemGenerator';
+import { bagGenerator } from '~/services/bag/bagGenerator/bagGenerator';
+import { getBagByID } from '~/db/operators/bag';
+import { getItemsByBagId } from '~/db/operators/item';
+import { foodItems } from '~/db/schema';
 
 export default function BagScreen() {
   const router = useRouter();
@@ -27,11 +31,24 @@ export default function BagScreen() {
     pet,
   });
 
+  // Replace the text, looks lame.
+
   async function handleSave() {
     try {
-      router.push('/main/home');
+      const date = new Date().toISOString();
+      const generatedBagID = await bagGenerator({
+        name: 'Acil Durum Çantam',
+        description: 'AFAD önerileri baz alınarak hazırlanan acil durum çantanız.',
+        saved_at: date,
+        is_owned: true,
+        itemInserts: items,
+      });
+
+      if (generatedBagID) {
+        router.push('/main/home');
+      }
     } catch (error) {
-      Alert.alert(`Error while creating bag: ${error}`);
+      console.log(error);
     }
   }
 

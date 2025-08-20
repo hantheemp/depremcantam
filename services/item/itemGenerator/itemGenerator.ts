@@ -20,9 +20,9 @@ import {
   DOCUMENT_BASES,
   SPECIAL_CARE_BASES,
   HYGIENE_BASES,
-} from './constants/item';
-import { ItemForUI, ItemsForUI } from './interfaces/item';
-import { GeneratorNumberTypes } from './types/item';
+} from './constants';
+import { ItemForUI, ItemsForUI } from './interfaces';
+import { GeneratorNumberTypes } from './types';
 
 export function itemGenerator({
   adult,

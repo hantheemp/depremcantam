@@ -2,12 +2,19 @@ import { SQLiteTable } from 'drizzle-orm/sqlite-core';
 import { getDB } from '../connection';
 import { eq } from 'drizzle-orm';
 
-export async function createItem<T extends SQLiteTable>(table: T, values: T['$inferInsert']) {
+export async function createItem<T extends SQLiteTable>(
+  table: T,
+  values: T['$inferInsert'] | T['$inferInsert'][]
+) {
   try {
     const db = await getDB();
-    await db.insert(table).values(values);
+    if (Array.isArray(values)) {
+      await db.insert(table).values(values);
+    } else {
+      await db.insert(table).values(values);
+    }
   } catch (error) {
-    throw new Error(`Error occured while creating item: ${error}`);
+    throw new Error(`Error occurred while creating item: ${error}`);
   }
 }
 

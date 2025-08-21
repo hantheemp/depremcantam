@@ -20,7 +20,7 @@ export default function Layout() {
             <Stack.Screen name="home/index" />
             <Stack.Screen name="explore/index" />
             <Stack.Screen name="add-bag/index" />
-            <Stack.Screen name="home/[id]/index" />
+            <Stack.Screen name="home/[bagID]/index" />
             <Stack.Screen name="settings/index" />
           </Stack>
           <Navigator />

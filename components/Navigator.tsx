@@ -13,13 +13,13 @@ export default function Navigator() {
       justifyContent="space-around"
       backgroundColor="$background"
       paddingVertical="$2">
-      <Link href="/home" asChild>
+      <Link href="/main/home" asChild>
         <Button scaleIcon={1.5} icon={Home} />
       </Link>
-      <Link href="/add-bag" asChild>
+      <Link href="/main/add-bag" asChild>
         <Button scaleIcon={1.5} icon={Plus} />
       </Link>
-      <Link href="/explore" asChild>
+      <Link href="/main/explore" asChild>
         <Button scaleIcon={1.5} icon={Search} />
       </Link>
     </XStack>

@@ -52,7 +52,7 @@ export default function CounterInput({
         )}
       </XStack>
 
-      <XStack ai="center" jc="space-between" bg="#2B3640" br="$6" p="$4">
+      <XStack ai="center" jc="space-between" bg="rgba(75, 85, 99, 0.6)" br="$6" p="$4">
         <Button size="$3" circular bg="rgba(75, 85, 99, 0.8)" onPress={decrement}>
           <Minus size="$1.5" color="#EDEDEF" />
         </Button>
